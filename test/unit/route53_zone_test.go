@@ -17,7 +17,7 @@ func toTerraformOptions(path string, vars map[string]interface{}) terraform.Opti
 
 func TestRoute53ZoneWhenInvalidRecordTypeIsPassed(t *testing.T) {
 	/* ARRANGE */
-	options := toTerraformOptions("../../examples/route53_zone", map[string]interface{}{
+	options := toTerraformOptions("../../examples/complete", map[string]interface{}{
 		"zone_name": "example.com.",
 		"records": []map[string]interface{}{
 			{"name": "one", "type": "ALPHA", "records": []string{"10.0.0.0", "192.0.0.0"}, "ttl": 60},
@@ -43,7 +43,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 		},
 	}
 
-	options := toTerraformOptions("../../examples/route53_zone", route53ExpectedData)
+	options := toTerraformOptions("../../examples/complete", route53ExpectedData)
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &options)
 
 	/* ACTION */
