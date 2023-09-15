@@ -1,4 +1,6 @@
-# Route53 Zone Module
+# AWS Route53 Public Hosted Zone Terraform Module
+
+Terraform module to easily provision a public hosted zone with given records on Route53.
 
 <!-- BEGIN_TF_DOCS -->
 
