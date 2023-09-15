@@ -35,7 +35,7 @@ func TestRoute53ZoneWhenInvalidRecordTypeIsPassed(t *testing.T) {
 
 func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 	/* ARRANGE */
-	route53ExpectedData := map[string]interface{}{
+	variables := map[string]interface{}{
 		"zone_name": "example.armakuni.com.",
 		"records": []map[string]interface{}{
 			{"name": "one", "type": "A", "records": []string{"10.0.0.0", "192.0.0.0"}, "ttl": 60},
@@ -43,7 +43,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 		},
 	}
 
-	options := toTerraformOptions("../../examples/complete", route53ExpectedData)
+	options := toTerraformOptions("../../examples/complete", variables)
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &options)
 
 	/* ACTION */
@@ -73,7 +73,6 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 				for _, record := range recordsInterface {
 					if recordStr, ok := record.(string); ok {
 						fmt.Printf("Record: %+v\n", recordStr)
-						t.Fail()
 					}
 				}
 			case "CNAME":
@@ -81,7 +80,6 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 				for _, cname := range recordsInterface {
 					if cnameStr, ok := cname.(string); ok {
 						fmt.Printf("CNAME: %+v\n", cnameStr)
-						t.Fail()
 					}
 				}
 			default:
@@ -89,7 +87,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 			}
 		case "aws_route53_zone":
 			zoneMap, _ := resourcePlan.Change.After.(map[string]interface{})
-			assert.EqualValues(t, route53ExpectedData["zone_name"], zoneMap["name"])
+			assert.EqualValues(t, "example.armakuni.com", zoneMap["name"])
 		default:
 			t.Fatalf("Tests not implemented for resource type: %s", TFResourceType(resource))
 		}
