@@ -1,0 +1,37 @@
+name: Run Tests
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches: ["main"]
+
+concurrency: terratest-${{ inputs.module-name }}
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.21.0
+
+      - name: Download Go modules
+        run: go mod download
+        working-directory: test
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/terraform-aws-route53-public-hosted-zone-github-actions
+          role-session-name: terratest-session
+          aws-region: eu-west-3
+
+      - name: Run Terratest (via Go)
+        run: go test ./... -timeout 5m
+        working-directory: test
