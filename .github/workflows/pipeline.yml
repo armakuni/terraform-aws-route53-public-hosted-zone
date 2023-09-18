@@ -1,0 +1,14 @@
+on:
+  push:
+    branches: ["*"]
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/run-tests.yml
+    secrets: inherit
+
+  create-release:
+    needs:
+      - run-tests
+    if: github.ref == 'refs/heads/main'
+    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.2.3

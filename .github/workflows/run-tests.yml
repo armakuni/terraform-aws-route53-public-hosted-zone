@@ -5,10 +5,12 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 on:
-  push:
-    branches: ["main"]
+  workflow_call:
+    secrets:
+      AWS_ACCOUNT_ID:
+        required: true
 
-concurrency: terratest-${{ inputs.module-name }}
+concurrency: terratest-route53-hosted-zone
 
 jobs:
   run-tests:
