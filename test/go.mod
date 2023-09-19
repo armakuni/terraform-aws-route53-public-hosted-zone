@@ -3,7 +3,7 @@ module route53_zone
 go 1.21.0
 
 require (
-	github.com/armakuni/go-dns-assertions v0.2.0
+	github.com/armakuni/go-dns-assertions v0.3.0
 	github.com/aws/aws-sdk-go v1.44.122
 	github.com/gruntwork-io/terratest v0.43.13
 	github.com/stretchr/testify v1.8.4
