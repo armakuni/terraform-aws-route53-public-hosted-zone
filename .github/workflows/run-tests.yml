@@ -41,6 +41,11 @@ jobs:
           role-session-name: terratest-session
           aws-region: eu-west-3
 
-      - name: Run Terratest (via Go)
+      - name: Run Unit Tests (via Go)
         run: go test ./... -timeout 5m
-        working-directory: test
+        working-directory: test/unit
+
+      - name: Run Integration Tests (via Go)
+        if: github.ref == 'refs/heads/main'
+        run: go test ./... -timeout 5m
+        working-directory: test/integration
