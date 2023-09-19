@@ -40,7 +40,11 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 		"records": []map[string]interface{}{
 			{"name": "one", "type": "A", "records": []string{"10.0.0.0", "192.0.0.0"}, "ttl": 60},
 			{"name": "two", "type": "CNAME", "records": []string{"dummy.armakuni.co.uk"}, "ttl": 60},
-			{"name": "three", "type": "CNAME", "records": []string{"mummy.armakuni.co.uk"}, "ttl": 60},
+			{"name": "three", "type": "TXT", "records": []string{"example-text-record"}, "ttl": 60},
+			{"name": "four", "type": "NS", "records": []string{"ns-2121.awsdns-21.com."}, "ttl": 60},
+			{"name": "five", "type": "SOA", "records": []string{"ns-2121.awsdns-21.com."}, "ttl": 60},
+			{"name": "six", "type": "SPF", "records": []string{"v=spf1 ip4:10.10.10.10/16-all"}, "ttl": 60},
+			{"name": "seven", "type": "MX", "records": []string{"10 mailserver.dummy.armakuni.co.uk"}, "ttl": 60},
 		},
 	}
 
