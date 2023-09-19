@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.1](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/compare/v0.2.0..v0.2.1) - 2023-09-19
+#### Bug Fixes
+- update tag-and-release version - ([119417e](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/119417e125f27ece82346200a20b46e4650c4b9c)) - Ben Nagy
+
+- - -
+
 ## [v0.2.0](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/compare/v0.1.0..v0.2.0) - 2023-09-19
 #### Continuous Integration
 - Add check for conventional-commits - ([0cd979c](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/0cd979c3044677191de2a24b3f91efbc6328e952)) - Tom Oram
