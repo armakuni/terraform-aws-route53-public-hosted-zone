@@ -15,4 +15,5 @@ jobs:
       - run-tests
       - check-conventional-commits
     if: github.ref == 'refs/heads/main'
-    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.2.3
+    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.4.1
+    secrets: inherit
