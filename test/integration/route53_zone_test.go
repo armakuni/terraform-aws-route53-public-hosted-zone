@@ -20,8 +20,8 @@ func TestTerraformAwsRoute53Zone(t *testing.T) {
 		"zone_name": "terraform-test.armakuni.com.",
 		"records": []map[string]interface{}{
 			{"name": "one", "type": "A", "records": []string{"10.0.0.0", "192.0.0.0"}, "ttl": 60},
+			{"name": "one", "type": "TXT", "records": []string{"example-text-record"}, "ttl": 60},
 			{"name": "two", "type": "CNAME", "records": []string{"dummy.armakuni.co.uk"}, "ttl": 60},
-			{"name": "two", "type": "TXT", "records": []string{"example-text-record"}, "ttl": 60},
 		},
 	})
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &options)
