@@ -2,12 +2,10 @@ package test
 
 import (
 	"os"
-	"strings"
 
 	"github.com/gruntwork-io/terratest/modules/logger"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/gruntwork-io/terratest/modules/testing"
-	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/stretchr/testify/require"
 )
 
@@ -26,22 +24,13 @@ func InitAndPlanAndShowWithStructNoLogTempPlanFileE(t testing.TestingT, options 
 	return terraform.InitAndPlanAndShowWithStructE(t, options)
 }
 
-func TFResourceType(resource string) string {
-	resourceSegments := strings.Split(resource, ".")
-	return resourceSegments[len(resourceSegments)-2]
-}
-
-func GetResourceChangeByAddress(address string, plan *terraform.PlanStruct) *tfjson.ResourceChange {
+func GetResourceChangeAfterByAddress(address string, plan *terraform.PlanStruct) map[string]interface{} {
 	for _, value := range plan.ResourceChangesMap {
 		if value.Address == address {
-			return value
+			return value.Change.After.(map[string]interface{})
 		}
 	}
 	return nil
-}
-
-func GetResourceChangeAfter(resourceChange *tfjson.ResourceChange) map[string]interface{} {
-	return resourceChange.Change.After.(map[string]interface{})
 }
 
 func interfaceSliceToStringSlice(input []interface{}) []string {

@@ -17,6 +17,7 @@ func toTerraformOptions(path string, vars map[string]interface{}) terraform.Opti
 
 func TestRoute53ZoneWhenInvalidRecordTypeIsPassed(t *testing.T) {
 	/* ARRANGE */
+	t.Parallel()
 	options := toTerraformOptions("../../examples/complete", map[string]interface{}{
 		"zone_name": "example.com",
 		"records": []map[string]interface{}{
@@ -35,6 +36,7 @@ func TestRoute53ZoneWhenInvalidRecordTypeIsPassed(t *testing.T) {
 
 func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 	/* ARRANGE */
+	t.Parallel()
 	inputVariables := map[string]interface{}{
 		"zone_name": "example.armakuni.com",
 		"records": []map[string]interface{}{
@@ -57,20 +59,19 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 
 	/* ASSERTIONS */
 	// Asserting Zone Name
-	actualZone := GetResourceChangeByAddress("module.test_route53_zone.aws_route53_zone.this", plan)
-	assert.EqualValues(t, inputVariables["zone_name"], GetResourceChangeAfter(actualZone)["name"])
+	actualZone := GetResourceChangeAfterByAddress("module.test_route53_zone.aws_route53_zone.this", plan)
+	assert.EqualValues(t, inputVariables["zone_name"], actualZone["name"])
 	// Asserting Records
 	for _, expectedValue := range inputVariables["records"].([]map[string]interface{}) {
-		address := fmt.Sprintf("module.test_route53_zone.aws_route53_record.record[\"name=%s,type=%s\"]", expectedValue["name"], expectedValue["type"])
-		actualRecordResourceChange := GetResourceChangeByAddress(address, plan)
-		assert.NotEmpty(t, actualRecordResourceChange, fmt.Sprintf("ResourceChange for: %s does not exist", address))
-
-		actualRecordResourceChangeAfter := GetResourceChangeAfter(actualRecordResourceChange)
+		recordTFPlanAddress := fmt.Sprintf("module.test_route53_zone.aws_route53_record.record[\"name=%s,type=%s\"]", expectedValue["name"], expectedValue["type"])
+		actualRecordResourceChangeAfter := GetResourceChangeAfterByAddress(recordTFPlanAddress, plan)
+		assert.NotEmpty(t, actualRecordResourceChangeAfter, fmt.Sprintf("ResourceChange for: %s does not exist", recordTFPlanAddress))
+		
 		expectedRecordName := fmt.Sprintf("%s.%s", expectedValue["name"], inputVariables["zone_name"])
 		assert.EqualValues(t, expectedRecordName, actualRecordResourceChangeAfter["name"])
 		assert.EqualValues(t, expectedValue["type"], actualRecordResourceChangeAfter["type"])
 		assert.EqualValues(t, expectedValue["ttl"], actualRecordResourceChangeAfter["ttl"])
-		actualRecords := interfaceSliceToStringSlice(actualRecordResourceChangeAfter["records"].([]interface{}))
-		assert.EqualValues(t, expectedValue["records"], actualRecords)
+		actualRecordsArray := interfaceSliceToStringSlice(actualRecordResourceChangeAfter["records"].([]interface{}))
+		assert.EqualValues(t, expectedValue["records"], actualRecordsArray)
 	}
 }
