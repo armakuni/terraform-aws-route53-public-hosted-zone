@@ -65,7 +65,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 	// Asserting Records, Iterating over the expected Route53 Records and asserting the against the plan
 	for _, expectedValue := range inputVariables["records"].([]map[string]interface{}) {
 		recordTFPlanAddress := fmt.Sprintf("module.test_route53_zone.aws_route53_record.record[\"name=%s,type=%s\"]", expectedValue["name"], expectedValue["type"])
-		actualRecordResourceChangeAfter := GetResourceChangeAfterByAddress(recordTFPlanAddress, plan)
+		actualRecordResourceChangeAfter, _ := tfplanstruct.GetResourceChangeAfterByAddressE(recordTFPlanAddress, plan)
 		assert.NotEmpty(t, actualRecordResourceChangeAfter, fmt.Sprintf("ResourceChange for: %s does not exist", recordTFPlanAddress))
 
 		expectedRecordName := fmt.Sprintf("%s.%s", expectedValue["name"], inputVariables["zone_name"])
