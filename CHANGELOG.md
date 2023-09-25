@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.2](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/compare/v0.2.1..v0.2.2) - 2023-09-25
+#### Bug Fixes
+- Generate terraform docs - ([e012fca](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/e012fcaa64af4e5357984f217173c65c949d0c9d)) - Tom Oram
+#### Continuous Integration
+- Don't run integration tests on branches - ([9561b27](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/9561b27f72b234166746e496c12e7ca36396fcbc)) - Tom Oram
+- Don't run tests on branches - ([781af46](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/781af46c8ced35f2fe19b64a4e6fe1deea99d025)) - Tom Oram
+- Get the repository name via github.repository - ([390af4d](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/390af4d5be015ffd89dc06a388111202b72c6ef8)) - Tom Oram
+#### Tests
+- **(unit)** corrected the function reference to use the go-terratest lib - ([7bad5e3](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/7bad5e3152d86524b38f25aecf66c775f45e560a)) - abhisheksr01
+- **(unit)** use go-terratest-helper library - ([0a17224](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/0a17224c2409bfe9a5f1e2a9298e54bace221d00)) - abhisheksr01
+- **(unit)** refactor unit tests - ([bd9a1bb](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/bd9a1bba81bd6c76bfcc78b3d89b7295bc37a6eb)) - abhisheksr01
+- **(unit)** test with all valid record types - ([7afb64a](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/7afb64a719f8c56f83e3648dde772a372bbc1f0a)) - abhisheksr01
+- **(unit)** test for zone has valid records - ([2731fb0](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/2731fb0f5faec8d497e841bbc310654c255cbb4e)) - abhisheksr01
+- Add TXT to subdomain with A record instead of CNAME - ([107cce3](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/107cce379e1a625c8e883d4a3a0a492688e55ad5)) - Tom Oram
+- Add test for TXT records - ([3b2d528](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/3b2d528839d0cd931e7374d5ca743b7e09e39c17)) - Tom Oram
+
+- - -
+
 ## [v0.2.1](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/compare/v0.2.0..v0.2.1) - 2023-09-19
 #### Bug Fixes
 - update tag-and-release version - ([119417e](https://github.com/armakuni/terraform-aws-route53-public-hosted-zone/commit/119417e125f27ece82346200a20b46e4650c4b9c)) - Ben Nagy
