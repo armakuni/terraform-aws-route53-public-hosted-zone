@@ -24,15 +24,6 @@ func InitAndPlanAndShowWithStructNoLogTempPlanFileE(t testing.TestingT, options 
 	return terraform.InitAndPlanAndShowWithStructE(t, options)
 }
 
-func GetResourceChangeAfterByAddress(address string, plan *terraform.PlanStruct) map[string]interface{} {
-	for _, value := range plan.ResourceChangesMap {
-		if value.Address == address {
-			return value.Change.After.(map[string]interface{})
-		}
-	}
-	return nil
-}
-
 func interfaceSliceToStringSlice(input []interface{}) []string {
 	result := make([]string, len(input))
 	for i, val := range input {
