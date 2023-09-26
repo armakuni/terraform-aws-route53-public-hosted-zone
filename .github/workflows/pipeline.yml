@@ -10,11 +10,11 @@ jobs:
     secrets: inherit
 
   check-conventional-commits:
-    uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.8.1
+    uses: armakuni/github-actions/.github/workflows/check-conventional-commits.yml@v0.8.2
 
   generate-terraform-docs:
     if: github.ref == 'refs/heads/main'
-    uses: armakuni/github-actions/.github/workflows/generate-terraform-docs.yml@v0.8.1
+    uses: armakuni/github-actions/.github/workflows/generate-terraform-docs.yml@v0.8.2
     with:
       output-file: README.md
       # This artifact is referenced by the cog.toml
@@ -26,7 +26,7 @@ jobs:
       - check-conventional-commits
       - generate-terraform-docs
     if: github.ref == 'refs/heads/main'
-    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.8.1
+    uses: armakuni/github-actions/.github/workflows/tag-and-release.yml@v0.8.2
     secrets: inherit
     with:
       download-artifacts: true
