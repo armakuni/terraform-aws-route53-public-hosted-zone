@@ -4,7 +4,7 @@ go 1.21.1
 
 require (
 	github.com/armakuni/go-dns-assertions v0.3.0
-	github.com/armakuni/go-terratest-helper v0.0.0-20230925134631-2d6c05ef5a78
+	github.com/armakuni/go-terratest-helper v0.3.0
 	github.com/aws/aws-sdk-go v1.44.122
 	github.com/gruntwork-io/terratest v0.44.0
 	github.com/stretchr/testify v1.8.4
