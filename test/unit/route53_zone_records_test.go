@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	"github.com/armakuni/go-terratest-helper"
+	"github.com/armakuni/go-terratest-helper/tfplan"
+	"github.com/armakuni/go-terratest-helper/utils"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 )
@@ -29,7 +31,7 @@ func TestRoute53ZoneWhenInvalidRecordTypeIsPassed(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &options)
 
 	/* ACTION */
-	_, err := InitAndPlanAndShowWithStructNoLogTempPlanFileE(t, terraformOptions)
+	_, err := tfplan.InitAndPlanAndShowWithStructNoLogTempPlanFileE(t, terraformOptions)
 
 	/* ASSERTION */
 	assert.ErrorContains(t, err, `Only valid types permitted (A, CNAME, MX, NS, TXT, SOA, SPF)`)
@@ -55,7 +57,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &options)
 
 	/* ACTION */
-	plan, err := InitAndPlanAndShowWithStructNoLogTempPlanFileE(t, terraformOptions)
+	plan, err := tfplan.InitAndPlanAndShowWithStructNoLogTempPlanFileE(t, terraformOptions)
 	assert.Empty(t, err)
 
 	/* ASSERTIONS */
@@ -72,7 +74,7 @@ func TestRoute53ZoneHasValidRecordEntries(t *testing.T) {
 		assert.EqualValues(t, expectedRecordName, actualRecordResourceChangeAfter["name"])
 		assert.EqualValues(t, expectedValue["type"], actualRecordResourceChangeAfter["type"])
 		assert.EqualValues(t, expectedValue["ttl"], actualRecordResourceChangeAfter["ttl"])
-		actualRecordsArray := interfaceSliceToStringSlice(actualRecordResourceChangeAfter["records"].([]interface{}))
+		actualRecordsArray, _ := utils.InterfaceSliceToStringSliceE(actualRecordResourceChangeAfter["records"].([]interface{}))
 		assert.EqualValues(t, expectedValue["records"], actualRecordsArray)
 	}
 }
